@@ -3,8 +3,7 @@ name: Ruby
 on:
   push:
     branches:
-      - main
-
+      - release
   pull_request:
 
 jobs:
