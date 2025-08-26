@@ -1,16 +1,30 @@
 module HexletCode
   class FormRender
     def self.rendering_html(form)
-      form.body[:options].except(:method, :action, :inputs).each do |key, value| 
-        @other_attr = [] << "#{key}=\"#{value}\""
-      end
+      @form = form
       
-      puts "<form action=\"#{form.body[:options][:action]}\" method=\"#{form.body[:options][:method]}\" #{@other_attr.join}>\n\t#{render_tag(form).join("\n\t")}
+
+      puts "<form action=\"#{action}\" method=\"#{method}\" #{other_attr}>\n\t#{render_tag.join("\n\t")}
 </form>"
     end
-       
-    def self.render_tag(form)
-      form.body[:inputs].map do |options|
+
+    def self.method
+      method = @form.body[:options][:method]
+    end
+
+    def self.action
+      action = @form.body[:options][:action]
+    end
+
+    def self.other_attr
+      @form.body[:options].except(:method, :action, :inputs).each do |key, value| 
+        @other_attr = [] << "#{key}=\"#{value}\""
+      end
+      @other_attr.join
+    end
+    
+    def self.render_tag
+      @form.body[:inputs].map do |options|
         if options[:type].class == String
           HexletCode::Tag.build('input', options)
         else options[:type].class == Symbol
@@ -20,6 +34,7 @@ module HexletCode
         end
       end
     end
+
   end
 end
 
