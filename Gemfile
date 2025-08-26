@@ -7,9 +7,9 @@ gemspec
 
 gem 'irb'
 # gem 'minitest', '~> 5.0'
-gem 'rake', "~> 13.0"
+gem 'rake', '~> 13.0'
 gem 'rubocop', '~> 1.21'
 
-group :test do 
+group :test do
   gem 'rspec', '~> 3.4'
 end

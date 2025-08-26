@@ -1,1 +1,1 @@
-require_relative '../lib/hexlet_code.rb'
+require_relative '../lib/hexlet_code'

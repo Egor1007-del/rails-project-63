@@ -1,22 +1,22 @@
-class Tag
-  class << self
-    def build(*arr, &block)
-      case arr[0]
-      when "div"
-        puts "<#{arr[0]}></#{arr[0]}>"
-      when "img"
-        arr[1].map do |key, value|
-          puts "<#{arr[0]} #{key}=\"#{value}\">"
-        end
-      when "input"
-        params = []
-        arr[1].map do |key, value|
-          params << "#{key}=\"#{value}\""
-        end
-        puts "<#{arr[0]} #{params[0]} #{params[1]}>"
-      when "label"
-        puts "<#{arr[0]}>#{block.call}</#{arr[0]}>"
+module HexletCode
+  class Tag
+    def self.build(tag, attr = {})
+      attributes = build_attr(attr) 
+      return "<#{tag}#{attributes}>" if %w[br img input].include?(tag)
+      block_given? ? block = yield : block = ''
+      "<#{tag}#{attributes}>#{block}</#{tag}>"
+    end
+
+    def self.build_attr(attr = {})
+      return '' if attr.empty? 
+
+      pair_attr = []
+      attr.each do |key, value| 
+        pair_attr << "#{key}=\"#{value}\""
       end
+      pair_attr.join(' ').prepend(' ')
     end
   end
 end
+
+# puts HexletCode::Tag.build('label', for: 'email') { 'Email' }
