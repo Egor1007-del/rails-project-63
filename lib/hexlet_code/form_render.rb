@@ -31,16 +31,18 @@ module HexletCode
       @form.body[:inputs].map do |options|
         if options[:type].is_a? String
           if options[:count] == 1
-            tag_label = options[:label]
-            input << HexletCode::Tag.build('label', tag_label)
+            tag_for = options[:label].except(:content)
+            content = options[:label][:content]
+            input << HexletCode::Tag.build('label', tag_for) { content }
           end
           tag_attr = options.except(:label, :count)
           input << HexletCode::Tag.build('input', tag_attr)
 
         elsif options[:type].is_a? Symbol
           if options[:count] == 1
-            tag_label = options[:label]
-            input << HexletCode::Tag.build('label', tag_label)
+            tag_for = options[:label].except(:content)
+            content = options[:label][:content]
+            input << HexletCode::Tag.build('label', tag_for) { content }
           end
           value = options[:value]
           default_value = options.except(:value, :type, :label, :count).merge(cols: '20', rows: '40')

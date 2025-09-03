@@ -12,7 +12,8 @@ RSpec.describe 'test_full_form' do
       f.input :job, as: :text
       f.submit
     end
-    expect(form).to eq("<form action=\"#\" method=\"post\" class=\"hexlet-form\">\n\t<label for=\"name\" content=\"Name\"></label>\n\t<input name=\"name\" value=\"rob\" type=\"text\" class=\"user-input\">\n\t<label for=\"job\" content=\"Job\"></label>\n\t<textarea name=\"job\" cols=\"20\" rows=\"40\">hexlet</textarea>\n\t<input type=\"submit\" value=\"Save\">\n</form>")
+    expect(form).to eq("<form action=\"#\" method=\"post\" class=\"hexlet-form\">\n\t<label for=\"name\">Name</label>\n\t<input name=\"name\" value=\"rob\" type=\"text\" class=\"user-input\">\n\t<label for=\"job\">Job</label>\n\t<textarea name=\"job\" cols=\"20\" rows=\"40\">hexlet</textarea>\n\t<input type=\"submit\" value=\"Save\">\n</form>"
+)
   end
 end
 
