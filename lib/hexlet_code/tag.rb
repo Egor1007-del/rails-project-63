@@ -1,17 +1,20 @@
+# frozen_string_literal: true
+
 module HexletCode
   class Tag
     def self.build(tag, attr = {})
-      attributes = build_attr(attr) 
+      attributes = build_attr(attr)
       return "<#{tag}#{attributes}>" if %w[br img input].include?(tag)
-      block_given? ? block = yield : block = ''
+
+      block = block_given? ? yield : ''
       "<#{tag}#{attributes}>#{block}</#{tag}>"
     end
 
     def self.build_attr(attr = {})
-      return '' if attr.empty? 
+      return '' if attr.empty?
 
       pair_attr = []
-      attr.each do |key, value| 
+      attr.each do |key, value|
         pair_attr << "#{key}=\"#{value}\""
       end
       pair_attr.join(' ').prepend(' ')

@@ -10,15 +10,13 @@ module HexletCode
   # autoload(:FormBuilder, './hexlet_code/form_builder')
   # autoload(:FormRender, './hexlet_code/form_render')
   # autoload(:Tag, './hexlet_code/tag')
-  
+
   def self.form_for(user, attr = {})
     form = FormBuilder.new(user, **attr)
     yield(form) if block_given?
     FormRender.rendering_html(form)
   end
-  
 end
-
 
 # User = Struct.new(:name, :job)
 

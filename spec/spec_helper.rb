@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../lib/hexlet_code'
 
 # def load_fixture(path)

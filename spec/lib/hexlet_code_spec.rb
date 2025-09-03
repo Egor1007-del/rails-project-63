@@ -1,11 +1,13 @@
-RSpec.describe "test_full_form" do 
+# frozen_string_literal: true
+
+User = Struct.new(:name, :job)
+RSpec.describe 'test_full_form' do
   it 'return form' do
     # fixture = load_fixture('full_form.html')
 
-    User = Struct.new(:name, :job)
     user = User.new name: 'rob', job: 'hexlet'
 
-    form = HexletCode.form_for user, class: 'hexlet-form' do |f| 
+    form = HexletCode.form_for user, class: 'hexlet-form' do |f|
       f.input :name, class: 'user-input'
       f.input :job, as: :text
       f.submit
@@ -13,20 +15,6 @@ RSpec.describe "test_full_form" do
     expect(form).to eq("<form action=\"#\" method=\"post\" class=\"hexlet-form\">\n\t<label for=\"name\" content=\"Name\"></label>\n\t<input name=\"name\" value=\"rob\" type=\"text\" class=\"user-input\">\n\t<label for=\"job\" content=\"Job\"></label>\n\t<textarea name=\"job\" cols=\"20\" rows=\"40\">hexlet</textarea>\n\t<input type=\"submit\" value=\"Save\">\n</form>")
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # RSpec.describe HexletCode::Tag do
 
@@ -50,19 +38,19 @@ end
 
 # RSpec.describe 'test FormRender' do
 #   let(:empty_user) {Struct.new(:name, :job) }
-#   it 'without parameters' do 
+#   it 'without parameters' do
 #     user = empty_user.new name: 'rob'
 #     form = FormRender.form_for user do |f|
 #     end
 #     expect(form).to eq('<form action="#" method="post"></form>')
 #   end
-#   it 'with parameters' do 
+#   it 'with parameters' do
 #     user = empty_user.new name: 'rob'
 #     form = FormRender.form_for user, class: 'hexlet-form' do |f|
 #     end
 #     expect(form).to eq('<form action="#" method="post" class="hexlet-form"></form>')
 #   end
-#   it 'with url parameter' do 
+#   it 'with url parameter' do
 #     user = empty_user.new name: 'rob'
 #     form = FormRender.form_for user, url: '/profile', class: 'hexlet-form' do |f|
 #     end
