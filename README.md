@@ -1,6 +1,6 @@
 # HexletCode
 
-[![CI](https://github.com/<Egor1007-del>/<rails-project-63>/actions/workflows/main.yml/badge.svg)](https://github.com/<Egor1007-del>/<rails-project-63>/actions/workflows/main.yml)
+[![CI](https://github.com/<Egor1007-del>/<rails-project-63>/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/<Egor1007-del>/<rails-project-63>/actions/workflows/main.yml)
 ![hexlet-check](https://img.shields.io/badge/hexlet--check-passing-brightgreen)
 
 ## Installation
