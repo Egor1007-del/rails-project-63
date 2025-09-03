@@ -2,39 +2,64 @@ module HexletCode
   class FormRender
     def self.rendering_html(form)
       @form = form
-      
 
-      puts "<form action=\"#{action}\" method=\"#{method}\" #{other_attr}>\n\t#{render_tag.join("\n\t")}
+
+      "<form action=\"#{action}\" method=\"#{method}\"#{other_attr}>\n\t#{render_tag_input}\n\t#{render_tag_submit}
 </form>"
     end
 
     def self.method
-      method = @form.body[:options][:method]
+      method = @form.body[:form_attributes][:method]
     end
 
     def self.action
-      action = @form.body[:options][:action]
+      action = @form.body[:form_attributes][:action]
     end
 
-    def self.other_attr
-      @form.body[:options].except(:method, :action, :inputs).each do |key, value| 
-        @other_attr = [] << "#{key}=\"#{value}\""
+    def self.other_attr(other_attr = nil)
+      @form.body[:form_attributes].except(:method, :action, :inputs).each do |key, value| 
+        other_attr = [] << " #{key}=\"#{value}\""
       end
-      @other_attr.join
+      other_attr.join if other_attr != nil
     end
     
-    def self.render_tag
+
+    def self.render_tag_input
+      return '' if @form.body[:inputs].empty?
+      input = []
       @form.body[:inputs].map do |options|
-        if options[:type].class == String
-          HexletCode::Tag.build('input', options)
-        else options[:type].class == Symbol
+        if options[:type].is_a? String
+          if options[:count] == 1
+            tag_label = options[:label]
+            input << HexletCode::Tag.build('label', tag_label )
+          end
+          tag_attr = options.except(:label, :count)
+          input << HexletCode::Tag.build('input', tag_attr ) 
+
+        elsif options[:type].is_a? Symbol
+          if options[:count] == 1
+            tag_label = options[:label]
+            input << HexletCode::Tag.build('label', tag_label )
+          end
           value = options[:value]
-          default_value = options.except(:value, :type).merge(cols: "20", rows: "40")
-          HexletCode::Tag.build('textarea', default_value) { value }
+          default_value = options.except(:value, :type, :label, :count).merge(cols: "20", rows: "40")
+          input << HexletCode::Tag.build('textarea', default_value) { value }
         end
       end
+      input.join("\n\t")
     end
 
+    def self.render_tag_submit
+      return '' if @form.body[:submit].empty?
+      submit = []
+      @form.body[:submit].map do |options|
+        tag_attr = options.except(:label)
+        submit << HexletCode::Tag.build('input', tag_attr)
+      end
+      submit.join("\n\t")
+    end
+
+    
   end
 end
 
