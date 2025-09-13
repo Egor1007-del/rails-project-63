@@ -4,7 +4,7 @@ User = Struct.new(:name, :job)
 RSpec.describe 'test_full_form' do
   it 'return form' do
     # fixture = load_fixture('full_form.html')
-    html_fixture = read_fixture("full_form.html")
+    html_fixture = read_fixture('full_form.html')
     user = User.new name: 'rob', job: 'hexlet'
 
     form = HexletCode.form_for user, class: 'hexlet-form' do |f|
