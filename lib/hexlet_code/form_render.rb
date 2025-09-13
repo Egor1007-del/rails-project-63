@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module HexletCode
   class FormRender
     def self.rendering_html(form)
@@ -21,7 +19,7 @@ module HexletCode
       @form.body[:form_attributes].except(:method, :action, :inputs).each do |key, value|
         other_attr = [] << " #{key}=\"#{value}\""
       end
-      other_attr&.join
+      other_attr.join
     end
 
     def self.render_tag_input
@@ -30,26 +28,26 @@ module HexletCode
       input = []
       @form.body[:inputs].map do |options|
         if options[:type].is_a? String
-          if options[:count] == 1
-            tag_for = options[:label].except(:content)
-            content = options[:label][:content]
-            input << HexletCode::Tag.build('label', tag_for) { content }
-          end
+          input << render_tag_label(options)
           tag_attr = options.except(:label, :count)
           input << HexletCode::Tag.build('input', tag_attr)
 
         elsif options[:type].is_a? Symbol
-          if options[:count] == 1
-            tag_for = options[:label].except(:content)
-            content = options[:label][:content]
-            input << HexletCode::Tag.build('label', tag_for) { content }
-          end
+          input << render_tag_label(options)
           value = options[:value]
           default_value = options.except(:value, :type, :label, :count).merge(cols: '20', rows: '40')
           input << HexletCode::Tag.build('textarea', default_value) { value }
         end
       end
       input.join("\n\t")
+    end
+
+    def self.render_tag_label(options)
+      return unless options[:count] == 1
+
+      tag_for = options[:label].except(:content)
+      content = options[:label][:content]
+      HexletCode::Tag.build('label', tag_for) { content }
     end
 
     def self.render_tag_submit
