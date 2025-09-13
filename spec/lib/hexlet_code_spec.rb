@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 User = Struct.new(:name, :job)
 RSpec.describe 'test_full_form' do
   it 'return form' do
     # fixture = load_fixture('full_form.html')
-
+    html_fixture = read_fixture("full_form.html")
     user = User.new name: 'rob', job: 'hexlet'
 
     form = HexletCode.form_for user, class: 'hexlet-form' do |f|
@@ -10,7 +12,7 @@ RSpec.describe 'test_full_form' do
       f.input :job, as: :text
       f.submit
     end
-    expect(form).to eq("<form action=\"#\" method=\"post\" class=\"hexlet-form\">\n\t<label for=\"name\">Name</label>\n\t<input name=\"name\" value=\"rob\" type=\"text\" class=\"user-input\">\n\t<label for=\"job\">Job</label>\n\t<textarea name=\"job\" cols=\"20\" rows=\"40\">hexlet</textarea>\n\t<input type=\"submit\" value=\"Save\">\n</form>")
+    expect(form).to eq(html_fixture)
   end
 end
 

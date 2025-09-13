@@ -72,7 +72,6 @@ GEM
     unicode-emoji (4.0.4)
 
 PLATFORMS
-  ruby
   x86_64-linux
 
 DEPENDENCIES

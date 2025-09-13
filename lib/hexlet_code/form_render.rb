@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 module HexletCode
   class FormRender
     def self.rendering_html(form)
       @form = form
 
-      "<form action=\"#{action}\" method=\"#{method}\"#{other_attr}>\n\t#{render_tag_input}\n\t#{render_tag_submit}
-</form>"
+      "<form action=\"#{action}\" method=\"#{method}\"#{other_attr}>\n\t#{render_tag_input}\n\t#{render_tag_submit}\n</form>\n"
     end
 
     def self.method
