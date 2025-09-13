@@ -19,7 +19,7 @@ module HexletCode
       @form.body[:form_attributes].except(:method, :action, :inputs).each do |key, value|
         other_attr = [] << " #{key}=\"#{value}\""
       end
-      other_attr.join
+      other_attr&.join
     end
 
     def self.render_tag_input
