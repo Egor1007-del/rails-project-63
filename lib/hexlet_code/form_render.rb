@@ -4,8 +4,12 @@ module HexletCode
   class FormRender
     def self.rendering_html(form)
       @form = form
-
-      "<form action=\"#{action}\" method=\"#{method}\"#{other_attr}>\n\t#{render_tag_input}\n\t#{render_tag_submit}\n</form>\n"
+      <<~HTML
+        <form action=\"#{action}\" method=\"#{method}\"#{other_attr}>
+        \t#{render_tag_input}
+        \t#{render_tag_submit}
+        </form>
+      HTML
     end
 
     def self.method
@@ -26,21 +30,27 @@ module HexletCode
     def self.render_tag_input
       return '' if @form.body[:inputs].empty?
 
-      input = []
-      @form.body[:inputs].map do |options|
-        if options[:type].is_a? String
-          input << render_tag_label(options)
-          tag_attr = options.except(:label, :count)
-          input << HexletCode::Tag.build('input', tag_attr)
+      @form.body[:inputs].map { |options| render_tag(options) }.join("\n\t")
+    end
 
-        elsif options[:type].is_a? Symbol
-          input << render_tag_label(options)
-          value = options[:value]
-          default_value = options.except(:value, :type, :label, :count).merge(cols: '20', rows: '40')
-          input << HexletCode::Tag.build('textarea', default_value) { value }
-        end
+    def self.render_tag(options)
+      label = render_tag_label(options)
+      input = build_control(options)
+      [label, input].compact
+    end
+
+    def self.build_control(options)
+      case options[:type]
+      when String
+        tag_attr = options.except(:label, :count)
+        HexletCode::Tag.build('input', tag_attr)
+      when Symbol
+        value = options[:value]
+        default_value = options.except(:value, :type, :label, :count).merge(cols: '20', rows: '40')
+        HexletCode::Tag.build('textarea', default_value) { value }
+      else
+        ''
       end
-      input.join("\n\t")
     end
 
     def self.render_tag_label(options)
@@ -63,30 +73,3 @@ module HexletCode
     end
   end
 end
-
-# User = Struct.new(:name, :job)
-# user = User.new name: 'rob'
-
-# puts FormRender.form_for user, url: '/profile', class: 'hexlet-form' do |f|
-# end
-
-# class << self
-#       def form_for(user, attributes = {})
-#         if attributes.empty?
-#           "<form action=\"#\" method=\"post\"></form>"
-#         else
-#           pair_attr = []
-#           url = []
-#           attributes.each do |key, value|
-#             next url = value if key == :url
-#             pair_attr << "#{key}=\"#{value}\""
-#           end
-#           pair_attr = pair_attr.join(' ')
-#           if url.empty?
-#             "<form action=\"#\" method=\"post\" #{pair_attr}></form>"
-#           else
-#             "<form action=\"#{url}\" method=\"post\" #{pair_attr}></form>"
-#           end
-#         end
-#       end
-#     end

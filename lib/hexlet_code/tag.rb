@@ -14,7 +14,7 @@ module HexletCode
       return '' if attr.empty?
 
       pair_attr = []
-      attr.each do |key, value|
+      attr.map do |key, value|
         pair_attr << "#{key}=\"#{value}\""
       end
       pair_attr.join(' ').prepend(' ')
