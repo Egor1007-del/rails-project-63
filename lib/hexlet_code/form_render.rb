@@ -5,7 +5,7 @@ module HexletCode
     def self.rendering_html(form)
       @form = form
       <<~HTML
-        <form action=\"#{action}\" method=\"#{method}\"#{other_attr}>
+        <form action="#{action}" method="#{method}"#{other_attr}>
         \t#{render_tag_input}
         \t#{render_tag_submit}
         </form>
