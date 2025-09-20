@@ -2,15 +2,12 @@ module HexletCode
   module Inputs
     class BaseInput
       TAG_NAME = nil
-      DEFAULT = {}.freeze
+      DEFAULT = {}
       STRIP_KEY = %i[label count].freeze
 
       def initialize(options)
         @options = options
       end
-
-      # def to_html
-      # end
 
       def extract_value_and_attrs
         value = @options[:value]

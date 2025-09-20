@@ -17,10 +17,10 @@ module HexletCode
 end
 
 User = Struct.new(:name, :job)
-User.new name: 'rob', job: 'hexlet'
+user = User.new name: 'rob', job: 'hexlet'
 
-# HexletCode.form_for user, class: 'hexlet-form' do |f|
-#   f.input :name, class: 'user-input'
-#   f.input :job, as: :text
-#   f.submit
-# end
+HexletCode.form_for user, class: 'hexlet-form' do |f|
+  f.input :name, class: 'user-input'
+  f.input :job, as: :text
+  f.submit
+end
