@@ -3,35 +3,113 @@
 [![CI](https://github.com/Egor1007-del/rails-project-63/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Egor1007-del/rails-project-63/actions/workflows/main.yml)
 ![hexlet-check](https://img.shields.io/badge/hexlet--check-passing-brightgreen)
 
-## Installation
+## Description
 
-Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+A form generator is a DSL that makes it easy to generate forms. This library handles tasks that typically require a lot of boilerplate code, such as error handling. In the Rails world, Simple Form is used for this purpose. Our generator is conceptually similar, but significantly simpler.
+
+## Installation
 
 Install the gem and add to the application's Gemfile by executing:
 
+Gemfile:
 ```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+
+gem 'hexlet_code'
+
 ```
 
+```bash
+
+bundle intall
+
+```
 If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+gem install hexlet_code
 ```
 
 ## Usage
 
-Write usage instructions here
+Our form generator relies on ROPO (Ruby Old Plain Object)—entity objects from which data can be extracted to fill out a form. To generate the entity, we'll use Struct.
 
-## Development
+Create a User class with name and job fields
+User = Struct.new(:name, :job, keyword_init: true)
+Create a specific user and fill in the name
+user = User.new name: 'rob'
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+This user is then used to generate an HTML form:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+HexletCode.form_for user do |f|
+end
 
-## Contributing
+# <form action="#" method="post"></form>
+The generator can accept various form attributes as a hash:
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/hexlet_code. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/hexlet_code/blob/master/CODE_OF_CONDUCT.md).
+HexletCode.form_for user, class: 'hexlet-form' do |f|
+end
+
+# <form action="#" method="post" class="hexlet-form"></form>
+
+If the url key is passed, it will be used as the address when submitting the form:
+
+HexletCode.form_for user, url: '/profile', class: 'hexlet-form' do |f|
+end
+
+# <form action="/profile" method="post" class="hexlet-form"></form>
+
+
+Generating specific fields based on the data of the passed object
+
+User = Struct.new(:name, :job, :gender, keyword_init: true)
+user = User.new name: 'rob', job: 'hexlet', gender: 'm'
+
+HexletCode.form_for user do |f|
+  f.input :name
+  f.input :job, as: :text
+end
+
+# <form action="#" method="post">
+#   <input name="name" type="text" value="rob">
+#   <textarea name="job" cols="20" rows="40">hexlet</textarea>
+# </form>
+
+## Exaples
+
+# exaples_1
+User = Struct.new(:name, :job, keyword_init: true)
+user = User.new job: 'hexlet'
+
+HexletCode.form_for user do |f|
+  f.input :name
+  f.input :job
+  f.submit
+end
+
+# <form action="#" method="post">
+#   <label for="name">Name</label>
+#   <input name="name" type="text" value="">
+#   <label for="job">Job</label>
+#   <input name="job" type="text" value="hexlet">
+#   <input type="submit" value="Save">
+# </form>
+
+# exaples_2
+
+HexletCode.form_for user, url: '#' do |f|
+      f.input :name
+      f.input :job
+      f.submit 'Wow'
+    end
+
+# <form action="#" method="post">
+#   <label for="name">Name</label>
+#   <input name="name" type="text" value="">
+#   <label for="job">Job</label>
+#   <input name="job" type="text" value="hexlet">
+#   <input type="submit" value="Wow">
+# </form>
+
 
 ## License
 

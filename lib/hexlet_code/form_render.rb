@@ -40,17 +40,8 @@ module HexletCode
     end
 
     def self.build_control(options)
-      case options[:type]
-      when String
-        tag_attr = options.except(:label, :count)
-        HexletCode::Tag.build('input', tag_attr)
-      when Symbol
-        value = options[:value]
-        default_value = options.except(:value, :type, :label, :count).merge(cols: '20', rows: '40')
-        HexletCode::Tag.build('textarea', default_value) { value }
-      else
-        ''
-      end
+      input_class = "HexletCode::Inputs::#{options[:type].capitalize}Input".constantize
+      input_class.new(options).to_html
     end
 
     def self.render_tag_label(options)

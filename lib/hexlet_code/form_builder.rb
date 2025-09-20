@@ -19,7 +19,6 @@ module HexletCode
 
     def submit(value = 'Save', attr = {})
       @body[:submit] << { type: 'submit', value: }.merge(attr)
-      # @body[:submit] = { options: attributes }
     end
 
     def build_input_attr(name, attr)

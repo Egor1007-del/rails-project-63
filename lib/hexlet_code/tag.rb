@@ -21,5 +21,3 @@ module HexletCode
     end
   end
 end
-
-# puts HexletCode::Tag.build('label', for: 'email') { 'Email' }
