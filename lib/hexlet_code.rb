@@ -15,12 +15,3 @@ module HexletCode
     FormRender.rendering_html(form)
   end
 end
-
-User = Struct.new(:name, :job)
-user = User.new name: 'rob', job: 'hexlet'
-
-HexletCode.form_for user, class: 'hexlet-form' do |f|
-  f.input :name, class: 'user-input'
-  f.input :job, as: :text
-  f.submit
-end
