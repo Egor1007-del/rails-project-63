@@ -8,3 +8,5 @@ Layout/LineLength:
   Max: 400
 Metrics/AbcSize:
   Max: 30
+Style/MutableConstant:
+  Enabled: false

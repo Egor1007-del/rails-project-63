@@ -23,7 +23,7 @@ module HexletCode
 
     def build_input_attr(name, attr)
       value = @user.public_send(name)
-      type = attr.fetch(:as, 'text')
+      type = attr.fetch(:as, 'string')
       name = name.to_s
       { name: name, value: value, type: type, label: build_label_attr(name) }.merge(attr.except(:as))
     end
