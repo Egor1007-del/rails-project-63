@@ -23,35 +23,43 @@ gem 'hexlet_code'
 
 Установите зависимости:
 
+```bush 
 bundle install
-
+```
 
 Либо напрямую:
 
+```bush 
 gem install hexlet_code
+```
 
-🛠 Использование
+## 🛠 Использование
 
 Генератор работает с объектами (например, Struct).
 
 Пример:
-
+```ruby
 User = Struct.new(:name, :job, keyword_init: true)
 user = User.new name: 'rob'
 
 HexletCode.form_for user do |f|
 end
 # <form action="#" method="post"></form>
-
+```
 
 Можно указывать атрибуты формы:
 
+```ruby
 HexletCode.form_for user, url: '/profile', class: 'hexlet-form' do |f|
 end
 # <form action="/profile" method="post" class="hexlet-form"></form>
+```
 
-📝 Примеры
-Пример 1
+## 📝 Примеры
+
+### Пример 1
+
+```ruby
 User = Struct.new(:name, :job, keyword_init: true)
 user = User.new job: 'hexlet'
 
@@ -60,10 +68,11 @@ HexletCode.form_for user do |f|
   f.input :job
   f.submit
 end
-
+```
 
 Результат:
 
+```html
 <form action="#" method="post">
   <label for="name">Name</label>
   <input name="name" type="text" value="">
@@ -71,17 +80,20 @@ end
   <input name="job" type="text" value="hexlet">
   <input type="submit" value="Save">
 </form>
+```
 
-Пример 2
+### Пример 2
+```ruby
 HexletCode.form_for user, url: '#' do |f|
   f.input :name
   f.input :job
   f.submit 'Wow'
 end
-
+```
 
 Результат:
 
+```html
 <form action="#" method="post">
   <label for="name">Name</label>
   <input name="name" type="text" value="">
@@ -89,11 +101,11 @@ end
   <input name="job" type="text" value="hexlet">
   <input type="submit" value="Wow">
 </form>
+```
+## 📜 Лицензия
 
-## License
+Проект распространяется под лицензией [MIT](https://opensource.org/licenses/MIT).
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+## 🤝 Code of Conduct
 
-## Code of Conduct
-
-Everyone interacting in the HexletCode project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/hexlet_code/blob/master/CODE_OF_CONDUCT.md).
+См. [Code of Conduct](https://github.com/Egor1007-del/rails-project-63/blob/main/CODE_OF_CONDUCT.md).
