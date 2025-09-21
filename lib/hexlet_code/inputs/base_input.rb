@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module HexletCode
   module Inputs
     class BaseInput
       TAG_NAME = nil
-      DEFAULT = {}
+      DEFAULT = {}.freeze
       STRIP_KEY = %i[label count].freeze
 
       def initialize(options)
@@ -11,7 +13,7 @@ module HexletCode
 
       def extract_value_and_attrs
         value = @options[:value]
-        default_value = @options.reject { |key, _n| STRIP_KEY.include?(key) }
+        default_value = @options.except(*STRIP_KEY)
 
         [value, default_value]
       end
@@ -20,8 +22,8 @@ module HexletCode
         DEFAULT.merge(custom_attr)
       end
 
-      def build_tag(tag_name, attr, &block)
-        HexletCode::Tag.build(tag_name, attr, &block)
+      def build_tag(tag_name, attr, ...)
+        HexletCode::Tag.build(tag_name, attr, ...)
       end
     end
   end
