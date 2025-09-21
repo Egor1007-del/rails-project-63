@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module HexletCode
   module Inputs
     autoload(:BaseInput, File.expand_path('inputs/base_input', __dir__))
