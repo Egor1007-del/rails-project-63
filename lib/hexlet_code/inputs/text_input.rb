@@ -5,8 +5,8 @@ module HexletCode
     class TextInput < BaseInput
       TAG_NAME = 'textarea'
 
-      COLS = '20'.freeze
-      ROWS = '40'.freeze
+      COLS = '20'
+      ROWS = '40'
       DEFAULT = { cols: COLS, rows: ROWS }.freeze
 
       def to_html
