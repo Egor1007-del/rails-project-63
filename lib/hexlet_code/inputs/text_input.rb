@@ -11,7 +11,7 @@ module HexletCode
 
       def to_html
         value, default_value = extract_value_and_attrs
-        attr = build_attr(default_value.reject.merge(DEFAULT).except(:value, :type))
+        attr = build_attr(default_value.merge(DEFAULT).except(:value, :type))
         build_tag(TAG_NAME, attr) { value }
       end
     end
