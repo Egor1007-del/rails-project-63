@@ -4,27 +4,10 @@ module HexletCode
   class FormRender
     def self.rendering_html(form)
       @form = form
-      <<~HTML
-        <form action="#{action}" method="#{method}"#{other_attr}>
-        \t#{render_tag_input}
-        \t#{render_tag_submit}
-        </form>
-      HTML
-    end
 
-    def self.method
-      @form.body[:form_attributes][:method]
-    end
-
-    def self.action
-      @form.body[:form_attributes][:action]
-    end
-
-    def self.other_attr(other_attr = nil)
-      @form.body[:form_attributes].except(:method, :action, :inputs).each do |key, value|
-        other_attr = [] << " #{key}=\"#{value}\""
+      HexletCode::Tag.build('form', @form.body[:form_attributes]) do
+        "\n\t#{render_tag_input}\n\t#{render_tag_submit}\n"
       end
-      other_attr&.join
     end
 
     def self.render_tag_input
