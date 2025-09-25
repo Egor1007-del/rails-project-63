@@ -6,14 +6,16 @@ module HexletCode
       @form = form
 
       HexletCode::Tag.build('form', @form.body[:form_attributes]) do
-        "\n\t#{render_tag_input}\n\t#{render_tag_submit}\n"
+        "#{render_tag_input}#{render_tag_submit}\n"
       end
     end
 
     def self.render_tag_input
       return '' if @form.body[:inputs].empty?
 
-      @form.body[:inputs].map { |options| render_tag(options) }.join("\n\t")
+      input = ['']
+      @form.body[:inputs].map { |options| input << render_tag(options) }
+      input.join("\n\t")
     end
 
     def self.render_tag(options)
@@ -38,7 +40,7 @@ module HexletCode
     def self.render_tag_submit
       return '' if @form.body[:submit].empty?
 
-      submit = []
+      submit = ['']
       @form.body[:submit].map do |options|
         tag_attr = options.except(:label)
         submit << HexletCode::Tag.build('input', tag_attr)
